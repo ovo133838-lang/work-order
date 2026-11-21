@@ -1,6 +1,6 @@
 # 智能快寄柜接口自动化验收脚本
 # 覆盖 22 个接口，每个接口至少连续 3 轮；证据落 docs/locker/test-evidence/
-# 依赖：本地 MySQL(127.0.0.1:3307, 库 bw_locker) + Redis(127.0.0.1:6379) + gateway(127.0.0.1:8080)
+# 依赖：本机 MySQL(127.0.0.1:3306, root/root, 库 bw_locker) + Redis(127.0.0.1:6379) + gateway(127.0.0.1:8080)
 param(
     [string]$BaseUrl = "http://127.0.0.1:8080",
     [string]$User = "u_1001",
@@ -89,8 +89,8 @@ function Endpoint-Key([string]$method, [string]$path) {
 }
 
 function Force-Overdue([string]$orderNo) {
-    & $mysql --host=127.0.0.1 --port=3307 --user=root --database=bw_locker `
-        --execute="UPDATE lk_orders SET start_at=DATE_SUB(NOW(), INTERVAL 3 HOUR), end_at=DATE_SUB(NOW(), INTERVAL 2 HOUR) WHERE order_no='$orderNo';" | Out-Null
+    & $mysql --host=127.0.0.1 --port=3306 --user=root --password=root --database=bw_locker --silent `
+        --execute="UPDATE lk_orders SET start_at=DATE_SUB(NOW(), INTERVAL 3 HOUR), end_at=DATE_SUB(NOW(), INTERVAL 2 HOUR) WHERE order_no='$orderNo';" | Out-Null; if ($LASTEXITCODE -ne 0) { throw "force overdue failed for $orderNo" }
 }
 
 $roundPlan = @(
@@ -222,4 +222,6 @@ if ($failed.Count -gt 0) {
 }
 Write-Host ("summary -> " + $summaryFile) -ForegroundColor Green
 exit 0
+
+
 

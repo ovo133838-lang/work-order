@@ -1,0 +1,292 @@
+[
+  {
+    "name": "round2-cities",
+    "method": "GET",
+    "path": "/cities",
+    "expected": 200,
+    "status": 200,
+    "ok": true,
+    "latency_ms": 1,
+    "response": "{\"request_id\":\"4b38b1a0-b9d5-4ea0-895e-02c4ac982981\",\"data\":{\"items\":[{\"id\":\"city_025\",\"name\":\"南京\",\"province\":\"江苏\",\"pinyin\":\"nj\"},{\"id\":\"city_512\",\"name\":\"宿迁\",\"province\":\"江苏\",\"pinyin\":\"sq\"},{\"id\":\"city_516\",\"name\":\"徐州\",\"province\":\"江苏\",\"pinyin\":\"xz\"}],\"total\":3}}"
+  },
+  {
+    "name": "round2-stations",
+    "method": "GET",
+    "path": "/stations?city_id=city_512&lat=33.9631&lng=118.2752",
+    "expected": 200,
+    "status": 200,
+    "ok": true,
+    "latency_ms": 11,
+    "response": "{\"request_id\":\"9480a0f1-ecbe-438c-ad38-13cd9acc6494\",\"data\":{\"items\":[{\"id\":\"st_001\",\"name\":\"宿迁学院寄存点\",\"city_id\":\"city_512\",\"city_name\":\"宿迁\",\"address\":\"宿迁职业技术学院北门\",\"lat\":33.9631,\"lng\":118.2752,\"open_at\":\"08:00\",\"close_at\":\"22:00\",\"status\":\"open\",\"distance_m\":0,\"free_count\":10,\"cabinet_count\":10},{\"id\":\"st_002\",\"name\":\"宿迁高铁站寄存点\",\"city_id\":\"city_512\",\"city_name\":\"宿迁\",\"address\":\"宿迁站东广场一层\",\"lat\":33.958,\"lng\":118.31,\"open_at\":\"06:30\",\"close_at\":\"23:00\",\"status\":\"open\",\"distance_m\":3259,\"free_count\":6,\"cabinet_count\":6}],\"total\":2,\"page\":1,\"page_size\":20}}"
+  },
+  {
+    "name": "round2-cabinets",
+    "method": "GET",
+    "path": "/stations/st_001/cabinets",
+    "expected": 200,
+    "status": 200,
+    "ok": true,
+    "latency_ms": 1,
+    "response": "{\"request_id\":\"3814ad87-0a89-419f-ba55-1045685eec58\",\"data\":{\"station_id\":\"st_001\",\"station_name\":\"宿迁学院寄存点\",\"free_count\":10,\"items\":[{\"id\":\"cab_001_01\",\"code\":\"A-01\",\"size\":\"S\",\"status\":\"free\"},{\"id\":\"cab_001_02\",\"code\":\"A-02\",\"size\":\"M\",\"status\":\"free\"},{\"id\":\"cab_001_03\",\"code\":\"A-03\",\"size\":\"L\",\"status\":\"free\"},{\"id\":\"cab_001_04\",\"code\":\"A-04\",\"size\":\"S\",\"status\":\"free\"},{\"id\":\"cab_001_05\",\"code\":\"A-05\",\"size\":\"M\",\"status\":\"free\"},{\"id\":\"cab_001_06\",\"code\":\"A-06\",\"size\":\"L\",\"status\":\"free\"},{\"id\":\"cab_001_07\",\"code\":\"A-07\",\"size\":\"S\",\"status\":\"free\"},{\"id\":\"cab_001_08\",\"code\":\"A-08\",\"size\":\"M\",\"status\":\"free\"},{\"id\":\"cab_001_09\",\"code\":\"A-09\",\"size\":\"L\",\"status\":\"free\"},{\"id\":\"cab_001_10\",\"code\":\"A-10\",\"size\":\"S\",\"status\":\"free\"}]}}"
+  },
+  {
+    "name": "round2-guide",
+    "method": "GET",
+    "path": "/guide",
+    "expected": 200,
+    "status": 200,
+    "ok": true,
+    "latency_ms": 1,
+    "response": "{\"request_id\":\"c49644b1-095c-4650-b28d-20f2ec49a9a1\",\"data\":{\"version\":\"v1.0\",\"items\":[{\"title\":\"寄存流程\",\"content\":\"选择网点与柜门 → 选择寄存时长 → 在线支付 → 生成寄存凭证 → 到场输入凭证开柜\"},{\"title\":\"计费说明\",\"content\":\"按小时计费：S 300 分/时、M 450 分/时、L 600 分/时；押金 S 1000 分、M 1500 分、L 2000 分，取件后原路退回。\"},{\"title\":\"超时规则\",\"content\":\"超出寄存时长按 1.5 倍小时价计收超时费，需补缴后方可取件。\"},{\"title\":\"注意事项\",\"content\":\"贵重物品请自行保管；柜门关闭后请确认锁扣到位；异常请联系网点工作人员。\"}]}}"
+  },
+  {
+    "name": "round2-quote",
+    "method": "POST",
+    "path": "/quote",
+    "expected": 200,
+    "status": 200,
+    "ok": true,
+    "latency_ms": 1,
+    "response": "{\"request_id\":\"bb9c4483-9d09-437c-b39a-02ad55991709\",\"data\":{\"size\":\"M\",\"hours\":5,\"unit_price_fen\":450,\"rent_fen\":2250,\"deposit_fen\":1500,\"coupon_fen\":800,\"coupon_title\":\"满20减8\",\"total_fen\":2950}}"
+  },
+  {
+    "name": "round2-create-order-A",
+    "method": "POST",
+    "path": "/orders",
+    "expected": 201,
+    "status": 201,
+    "ok": true,
+    "latency_ms": 64,
+    "response": "{\"request_id\":\"af67cdfe-1500-4bbe-93ff-5ec41135f8b7\",\"data\":{\"order_no\":\"LK202611210931191C8A19\",\"station_id\":\"st_001\",\"station_name\":\"宿迁学院寄存点\",\"cabinet_code\":\"A-08\",\"size\":\"M\",\"hours\":5,\"rent_fen\":2250,\"deposit_fen\":1500,\"coupon_fen\":800,\"total_fen\":2950,\"status\":\"pending_pay\",\"start_at\":\"2026-11-21T09:31:19+08:00\",\"end_at\":\"2026-11-21T14:31:19+08:00\",\"pay\":{\"pay_no\":\"PAY20261121093119461B90\",\"amount_fen\":2950,\"channel\":\"alipay\",\"idempotency_key\":\"PAY20261121093119461B90\"}}}"
+  },
+  {
+    "name": "round2-pay-A",
+    "method": "POST",
+    "path": "/payments/notify",
+    "expected": 200,
+    "status": 200,
+    "ok": true,
+    "latency_ms": 31,
+    "response": "{\"request_id\":\"5942606b-c3b1-45d1-8b60-9c17df9d2878\",\"data\":{\"order_no\":\"LK202611210931191C8A19\",\"status\":\"active\",\"paid_at\":\"2026-11-21T09:31:19+08:00\",\"duplicated\":false}}"
+  },
+  {
+    "name": "round2-pay-A-duplicate",
+    "method": "POST",
+    "path": "/payments/notify",
+    "expected": 200,
+    "status": 200,
+    "ok": true,
+    "latency_ms": 1,
+    "response": "{\"request_id\":\"7063c2e2-7603-4fae-8501-87f1a28b8495\",\"data\":{\"order_no\":\"LK202611210931191C8A19\",\"status\":\"active\",\"paid_at\":\"2026-11-21T09:31:19+08:00\",\"duplicated\":true}}"
+  },
+  {
+    "name": "round2-orders",
+    "method": "GET",
+    "path": "/orders?status=all",
+    "expected": 200,
+    "status": 200,
+    "ok": true,
+    "latency_ms": 2,
+    "response": "{\"request_id\":\"1c04a986-1542-4f9a-85d7-8ea4710ed711\",\"data\":{\"items\":[{\"order_no\":\"LK202611210931191C8A19\",\"station_name\":\"宿迁学院寄存点\",\"cabinet_code\":\"A-08\",\"size\":\"M\",\"status\":\"active\",\"total_fen\":2950,\"overdue_fen\":0,\"end_at\":\"2026-11-21T14:31:19+08:00\",\"hours_left\":5},{\"order_no\":\"LK2026112109311939EED1\",\"station_name\":\"宿迁学院寄存点\",\"cabinet_code\":\"A-05\",\"size\":\"M\",\"status\":\"completed\",\"total_fen\":1950,\"overdue_fen\":1350,\"end_at\":\"2026-11-21T07:31:19+08:00\",\"hours_left\":0},{\"order_no\":\"LK2026112109311947B6C5\",\"station_name\":\"宿迁学院寄存点\",\"cabinet_code\":\"A-02\",\"size\":\"M\",\"status\":\"completed\",\"total_fen\":3250,\"overdue_fen\":0,\"end_at\":\"2026-11-21T14:31:19+08:00\",\"hours_left\":0}],\"total\":3,\"stats\":{\"active\":1,\"overdue\":0,\"pending_pay\":0,\"completed\":2},\"page\":1,\"page_size\":20}}"
+  },
+  {
+    "name": "round2-order-detail-A",
+    "method": "GET",
+    "path": "/orders/LK202611210931191C8A19",
+    "expected": 200,
+    "status": 200,
+    "ok": true,
+    "latency_ms": 1,
+    "response": "{\"request_id\":\"49f5cd95-a4b6-4ad4-a3e9-4696bd756a69\",\"data\":{\"order_no\":\"LK202611210931191C8A19\",\"station_name\":\"宿迁学院寄存点\",\"cabinet_code\":\"A-08\",\"size\":\"M\",\"status\":\"active\",\"total_fen\":2950,\"overdue_fen\":0,\"end_at\":\"2026-11-21T14:31:19+08:00\",\"hours_left\":5,\"station_address\":\"宿迁职业技术学院北门\",\"cabinet_size\":\"M\",\"rent_fen\":2250,\"deposit_fen\":1500,\"coupon_fen\":800,\"start_at\":\"2026-11-21T09:31:19+08:00\",\"paid_at\":\"2026-11-21T09:31:19+08:00\",\"actions\":[\"pickup\",\"grant\"],\"events\":[{\"node\":\"created\",\"note\":\"下单锁柜 A-08，5 小时\",\"at\":\"2026-11-21T09:31:19+08:00\"},{\"node\":\"paid\",\"note\":\"支付成功 2950 分\",\"at\":\"2026-11-21T09:31:19+08:00\"}]}}"
+  },
+  {
+    "name": "round2-grant-create",
+    "method": "POST",
+    "path": "/orders/LK202611210931191C8A19/grants",
+    "expected": 201,
+    "status": 201,
+    "ok": true,
+    "latency_ms": 17,
+    "response": "{\"request_id\":\"49650881-801b-4e18-aedb-ec6a3ba53a66\",\"data\":{\"grant_no\":\"GR20261121093119098439\",\"order_no\":\"LK202611210931191C8A19\",\"expire_at\":\"2026-11-21T09:46:19+08:00\",\"remain\":2,\"status\":\"active\"}}"
+  },
+  {
+    "name": "round2-grant-use-1",
+    "method": "POST",
+    "path": "/grants/GR20261121093119098439/use",
+    "expected": 200,
+    "status": 200,
+    "ok": true,
+    "latency_ms": 22,
+    "response": "{\"request_id\":\"174e8fe0-03a4-47f8-90c6-0d644d207d12\",\"data\":{\"grant_no\":\"GR20261121093119098439\",\"order_no\":\"LK202611210931191C8A19\",\"expire_at\":\"2026-11-21T09:46:19+08:00\",\"remain\":1,\"status\":\"active\",\"cabinet_status\":\"opening\"}}"
+  },
+  {
+    "name": "round2-grant-use-2",
+    "method": "POST",
+    "path": "/grants/GR20261121093119098439/use",
+    "expected": 200,
+    "status": 200,
+    "ok": true,
+    "latency_ms": 26,
+    "response": "{\"request_id\":\"bc3c9137-868d-4fe5-bfcd-5b0096d282ea\",\"data\":{\"grant_no\":\"GR20261121093119098439\",\"order_no\":\"LK202611210931191C8A19\",\"expire_at\":\"2026-11-21T09:46:19+08:00\",\"remain\":0,\"status\":\"used\",\"cabinet_status\":\"opening\"}}"
+  },
+  {
+    "name": "round2-grant-use-3-exhausted",
+    "method": "POST",
+    "path": "/grants/GR20261121093119098439/use",
+    "expected": 409,
+    "status": 409,
+    "ok": true,
+    "latency_ms": 1,
+    "response": "\r\n{\r\n  \"request_id\": \"5d8fa860-3c9d-4a8f-b270-acdc8921d723\",\r\n  \"error\": {\r\n    \"code\": \"grant_exhausted\",\r\n    \"message\": \"grant has no remaining use\"\r\n  }\r\n}"
+  },
+  {
+    "name": "round2-pickup-A",
+    "method": "POST",
+    "path": "/orders/LK202611210931191C8A19/pickup",
+    "expected": 200,
+    "status": 200,
+    "ok": true,
+    "latency_ms": 28,
+    "response": "{\"request_id\":\"82e90430-b084-4010-8ec8-443b76a15139\",\"data\":{\"order_no\":\"LK202611210931191C8A19\",\"status\":\"completed\",\"pickup_at\":\"2026-11-21T09:31:19+08:00\",\"cabinet_code\":\"A-08\",\"cabinet_status\":\"free\"}}"
+  },
+  {
+    "name": "round2-create-order-B",
+    "method": "POST",
+    "path": "/orders",
+    "expected": 201,
+    "status": 201,
+    "ok": true,
+    "latency_ms": 36,
+    "response": "{\"request_id\":\"5043ca65-28ff-4ae6-946c-832414417682\",\"data\":{\"order_no\":\"LK202611210931194F0A97\",\"station_id\":\"st_002\",\"station_name\":\"宿迁高铁站寄存点\",\"cabinet_code\":\"B-02\",\"size\":\"M\",\"hours\":1,\"rent_fen\":450,\"deposit_fen\":1500,\"coupon_fen\":0,\"total_fen\":1950,\"status\":\"pending_pay\",\"start_at\":\"2026-11-21T09:31:19+08:00\",\"end_at\":\"2026-11-21T10:31:19+08:00\",\"pay\":{\"pay_no\":\"PAY20261121093119C1E2C5\",\"amount_fen\":1950,\"channel\":\"alipay\",\"idempotency_key\":\"PAY20261121093119C1E2C5\"}}}"
+  },
+  {
+    "name": "round2-pay-B",
+    "method": "POST",
+    "path": "/payments/notify",
+    "expected": 200,
+    "status": 200,
+    "ok": true,
+    "latency_ms": 34,
+    "response": "{\"request_id\":\"f0902a75-6325-4da9-af6c-bb670bf7c9b0\",\"data\":{\"order_no\":\"LK202611210931194F0A97\",\"status\":\"active\",\"paid_at\":\"2026-11-21T09:31:19+08:00\",\"duplicated\":false}}"
+  },
+  {
+    "name": "round2-orders-after-expire",
+    "method": "GET",
+    "path": "/orders?status=all",
+    "expected": 200,
+    "status": 200,
+    "ok": true,
+    "latency_ms": 7,
+    "response": "{\"request_id\":\"49536147-a3d9-4325-88f9-dd2d85535e26\",\"data\":{\"items\":[{\"order_no\":\"LK202611210931194F0A97\",\"station_name\":\"宿迁高铁站寄存点\",\"cabinet_code\":\"B-02\",\"size\":\"M\",\"status\":\"overdue\",\"total_fen\":1950,\"overdue_fen\":0,\"end_at\":\"2026-11-21T07:31:19+08:00\",\"hours_left\":0},{\"order_no\":\"LK202611210931191C8A19\",\"station_name\":\"宿迁学院寄存点\",\"cabinet_code\":\"A-08\",\"size\":\"M\",\"status\":\"completed\",\"total_fen\":2950,\"overdue_fen\":0,\"end_at\":\"2026-11-21T14:31:19+08:00\",\"hours_left\":0},{\"order_no\":\"LK2026112109311939EED1\",\"station_name\":\"宿迁学院寄存点\",\"cabinet_code\":\"A-05\",\"size\":\"M\",\"status\":\"completed\",\"total_fen\":1950,\"overdue_fen\":1350,\"end_at\":\"2026-11-21T07:31:19+08:00\",\"hours_left\":0},{\"order_no\":\"LK2026112109311947B6C5\",\"station_name\":\"宿迁学院寄存点\",\"cabinet_code\":\"A-02\",\"size\":\"M\",\"status\":\"completed\",\"total_fen\":3250,\"overdue_fen\":0,\"end_at\":\"2026-11-21T14:31:19+08:00\",\"hours_left\":0}],\"total\":4,\"stats\":{\"active\":0,\"overdue\":1,\"pending_pay\":0,\"completed\":3},\"page\":1,\"page_size\":20}}"
+  },
+  {
+    "name": "round2-negative-pickup-overdue",
+    "method": "POST",
+    "path": "/orders/LK202611210931194F0A97/pickup",
+    "expected": 409,
+    "status": 409,
+    "ok": true,
+    "latency_ms": 1,
+    "response": "\r\n{\r\n  \"request_id\": \"42517d92-136d-4a08-9527-7eac1307898e\",\r\n  \"error\": {\r\n    \"code\": \"order_overdue\",\r\n    \"message\": \"order is overdue, pay overdue fee before pickup\"\r\n  }\r\n}"
+  },
+  {
+    "name": "round2-overdue-pay",
+    "method": "POST",
+    "path": "/orders/LK202611210931194F0A97/overdue-pay",
+    "expected": 200,
+    "status": 200,
+    "ok": true,
+    "latency_ms": 26,
+    "response": "{\"request_id\":\"c3339fd5-7551-4115-aa03-fda16c9db500\",\"data\":{\"order_no\":\"LK202611210931194F0A97\",\"status\":\"completed\",\"overdue_hours\":2,\"overdue_fen\":1350,\"end_at\":\"2026-11-21T09:31:19+08:00\"}}"
+  },
+  {
+    "name": "round2-balance",
+    "method": "GET",
+    "path": "/balance",
+    "expected": 200,
+    "status": 200,
+    "ok": true,
+    "latency_ms": 1,
+    "response": "{\"request_id\":\"52249b06-574a-40cf-b571-01dbcf6fb11d\",\"data\":{\"user_id\":\"u_1001\",\"balance_fen\":15000,\"frozen_fen\":0}}"
+  },
+  {
+    "name": "round2-flows",
+    "method": "GET",
+    "path": "/balance/flows",
+    "expected": 200,
+    "status": 200,
+    "ok": true,
+    "latency_ms": 2,
+    "response": "{\"request_id\":\"343f0a9d-087b-4049-863e-9eec47c72a58\",\"data\":{\"items\":[{\"flow_no\":\"FL2026112109311928C9B7\",\"biz_type\":\"recharge\",\"amount_fen\":10000,\"before_fen\":5000,\"after_fen\":15000,\"ref_no\":\"RC20261121093119ACEADB\",\"created_at\":\"2026-11-21T09:31:19+08:00\"}],\"total\":1,\"page\":1,\"page_size\":20}}"
+  },
+  {
+    "name": "round2-recharge-create",
+    "method": "POST",
+    "path": "/recharges",
+    "expected": 201,
+    "status": 201,
+    "ok": true,
+    "latency_ms": 11,
+    "response": "{\"request_id\":\"092b60e4-8543-49ac-9bca-0b5abb996f7c\",\"data\":{\"recharge_no\":\"RC20261121093120F8D6D2\",\"amount_fen\":5000,\"channel\":\"alipay\",\"status\":\"processing\",\"idempotency_key\":\"RC20261121093120F8D6D2\",\"created_at\":\"2026-11-21T09:31:20+08:00\"}}"
+  },
+  {
+    "name": "round2-recharge-notify",
+    "method": "POST",
+    "path": "/recharges/notify",
+    "expected": 200,
+    "status": 200,
+    "ok": true,
+    "latency_ms": 20,
+    "response": "{\"request_id\":\"5e18b88d-c0c5-43d4-ac60-da61f02ddf14\",\"data\":{\"recharge_no\":\"RC20261121093120F8D6D2\",\"status\":\"success\",\"balance_fen\":20000,\"flow_no\":\"FL20261121093120DCA44B\",\"duplicated\":false}}"
+  },
+  {
+    "name": "round2-recharges",
+    "method": "GET",
+    "path": "/recharges",
+    "expected": 200,
+    "status": 200,
+    "ok": true,
+    "latency_ms": 1,
+    "response": "{\"request_id\":\"40583f8d-8c28-41e7-8b82-d6b07c809c76\",\"data\":{\"items\":[{\"recharge_no\":\"RC20261121093120F8D6D2\",\"amount_fen\":5000,\"channel\":\"alipay\",\"status\":\"success\",\"idempotency_key\":\"RC20261121093120F8D6D2\",\"created_at\":\"2026-11-21T09:31:20+08:00\"},{\"recharge_no\":\"RC20261121093119ACEADB\",\"amount_fen\":10000,\"channel\":\"alipay\",\"status\":\"success\",\"idempotency_key\":\"RC20261121093119ACEADB\",\"created_at\":\"2026-11-21T09:31:19+08:00\"}],\"total\":2,\"page\":1,\"page_size\":20}}"
+  },
+  {
+    "name": "round2-profile",
+    "method": "GET",
+    "path": "/profile",
+    "expected": 200,
+    "status": 200,
+    "ok": true,
+    "latency_ms": 1,
+    "response": "{\"request_id\":\"7c40577f-c16e-4ef2-a4dc-3c47619caeb9\",\"data\":{\"user_id\":\"u_1001\",\"nickname\":\"宿迁用户\",\"avatar_url\":\"\",\"services\":[{\"name\":\"我的寄存\",\"path\":\"/pages/orders/index\",\"permission\":\"order:read\"},{\"name\":\"我的卡券\",\"path\":\"/pages/coupons/index\",\"permission\":\"coupon:read\"},{\"name\":\"余额与充值\",\"path\":\"/pages/wallet/index\",\"permission\":\"wallet:read\"},{\"name\":\"消息通知\",\"path\":\"/pages/notices/index\",\"permission\":\"notice:read\"}],\"coupon\":{\"usable\":0,\"expired\":1},\"order_stats\":{\"active\":0,\"overdue\":0,\"pending_pay\":0,\"completed\":4}}}"
+  },
+  {
+    "name": "round2-coupons",
+    "method": "GET",
+    "path": "/coupons?status=all",
+    "expected": 200,
+    "status": 200,
+    "ok": true,
+    "latency_ms": 0,
+    "response": "{\"request_id\":\"8ff21a40-2ba6-47b6-a327-8f88543f33f6\",\"data\":{\"items\":[{\"id\":\"cp_003\",\"title\":\"国庆寄存券\",\"scope\":\"M\",\"face_fen\":300,\"min_fen\":900,\"valid_to\":\"2026-11-20T09:30:50+08:00\",\"status\":\"expired\"},{\"id\":\"cp_001\",\"title\":\"新人立减5元\",\"scope\":\"all\",\"face_fen\":500,\"min_fen\":1500,\"valid_to\":\"2027-11-21T09:30:50+08:00\",\"status\":\"used\"},{\"id\":\"cp_002\",\"title\":\"满20减8\",\"scope\":\"all\",\"face_fen\":800,\"min_fen\":2000,\"valid_to\":\"2027-11-21T09:30:50+08:00\",\"status\":\"used\"}],\"total\":3}}"
+  },
+  {
+    "name": "round2-notices",
+    "method": "GET",
+    "path": "/notices?unread_only=true",
+    "expected": 200,
+    "status": 200,
+    "ok": true,
+    "latency_ms": 1,
+    "response": "{\"request_id\":\"a1135f06-0620-4b58-9fbd-b78b4eb45bec\",\"data\":{\"items\":[{\"id\":\"NT20261121093119F3B089\",\"scene\":\"order_completed\",\"title\":\"超时费已补缴\",\"content\":\"订单 LK202611210931194F0A97 补缴 1350 分，柜门已释放。\",\"channel\":\"inbox\",\"status\":\"sent\",\"order_no\":\"LK202611210931194F0A97\",\"created_at\":\"2026-11-21T09:31:19+08:00\"},{\"id\":\"NT2026112109311922DFAB\",\"scene\":\"order_paid\",\"title\":\"支付成功\",\"content\":\"订单 LK202611210931194F0A97 支付成功，柜门 B-02 已可使用。\",\"channel\":\"inbox\",\"status\":\"sent\",\"order_no\":\"LK202611210931194F0A97\",\"created_at\":\"2026-11-21T09:31:19+08:00\"},{\"id\":\"NT202611210931197CF64A\",\"scene\":\"pickup_reminder\",\"title\":\"寄存凭证已生成\",\"content\":\"订单 LK202611210931194F0A97 已锁定柜门 B-02，到场输入凭证开柜寄存。\",\"channel\":\"inbox\",\"status\":\"sent\",\"order_no\":\"LK202611210931194F0A97\",\"created_at\":\"2026-11-21T09:31:19+08:00\"},{\"id\":\"NT202611210931197BE3EA\",\"scene\":\"order_completed\",\"title\":\"寄存完成\",\"content\":\"订单 LK202611210931191C8A19 已取件，押金 1500 分原路退回。\",\"channel\":\"inbox\",\"status\":\"sent\",\"order_no\":\"LK202611210931191C8A19\",\"created_at\":\"2026-11-21T09:31:19+08:00\"},{\"id\":\"NT202611210931190DC25A\",\"scene\":\"grant_used\",\"title\":\"临时开柜已使用\",\"content\":\"授权 GR20261121093119098439 已开柜，剩余 0 次。\",\"channel\":\"inbox\",\"status\":\"sent\",\"order_no\":\"LK202611210931191C8A19\",\"created_at\":\"2026-11-21T09:31:19+08:00\"},{\"id\":\"NT20261121093119DE4CED\",\"scene\":\"grant_used\",\"title\":\"临时开柜已使用\",\"content\":\"授权 GR20261121093119098439 已开柜，剩余 1 次。\",\"channel\":\"inbox\",\"status\":\"sent\",\"order_no\":\"LK202611210931191C8A19\",\"created_at\":\"2026-11-21T09:31:19+08:00\"},{\"id\":\"NT2026112109311935C561\",\"scene\":\"order_paid\",\"title\":\"支付成功\",\"content\":\"订单 LK202611210931191C8A19 支付成功，柜门 A-08 已可使用。\",\"channel\":\"inbox\",\"status\":\"sent\",\"order_no\":\"LK202611210931191C8A19\",\"created_at\":\"2026-11-21T09:31:19+08:00\"},{\"id\":\"NT2026112109311945C9A3\",\"scene\":\"pickup_reminder\",\"title\":\"寄存凭证已生成\",\"content\":\"订单 LK202611210931191C8A19 已锁定柜门 A-08，到场输入凭证开柜寄存。\",\"channel\":\"inbox\",\"status\":\"sent\",\"order_no\":\"LK202611210931191C8A19\",\"created_at\":\"2026-11-21T09:31:19+08:00\"},{\"id\":\"NT202611210931193A8302\",\"scene\":\"order_paid\",\"title\":\"支付成功\",\"content\":\"订单 LK2026112109311939EED1 支付成功，柜门 A-05 已可使用。\",\"channel\":\"inbox\",\"status\":\"sent\",\"order_no\":\"LK2026112109311939EED1\",\"created_at\":\"2026-11-21T09:31:19+08:00\"},{\"id\":\"NT20261121093119DCAD50\",\"scene\":\"pickup_reminder\",\"title\":\"寄存凭证已生成\",\"content\":\"订单 LK2026112109311939EED1 已锁定柜门 A-05，到场输入凭证开柜寄存。\",\"channel\":\"inbox\",\"status\":\"sent\",\"order_no\":\"LK2026112109311939EED1\",\"created_at\":\"2026-11-21T09:31:19+08:00\"},{\"id\":\"NT2026112109311939CA92\",\"scene\":\"order_completed\",\"title\":\"寄存完成\",\"content\":\"订单 LK2026112109311947B6C5 已取件，押金 1500 分原路退回。\",\"channel\":\"inbox\",\"status\":\"sent\",\"order_no\":\"LK2026112109311947B6C5\",\"created_at\":\"2026-11-21T09:31:19+08:00\"},{\"id\":\"NT20261121093119119EB4\",\"scene\":\"grant_used\",\"title\":\"临时开柜已使用\",\"content\":\"授权 GR202611210931192A4901 已开柜，剩余 0 次。\",\"channel\":\"inbox\",\"status\":\"sent\",\"order_no\":\"LK2026112109311947B6C5\",\"created_at\":\"2026-11-21T09:31:19+08:00\"},{\"id\":\"NT202611210931199D13EC\",\"scene\":\"grant_used\",\"title\":\"临时开柜已使用\",\"content\":\"授权 GR202611210931192A4901 已开柜，剩余 1 次。\",\"channel\":\"inbox\",\"status\":\"sent\",\"order_no\":\"LK2026112109311947B6C5\",\"created_at\":\"2026-11-21T09:31:19+08:00\"},{\"id\":\"NT20261121093119D1E4B8\",\"scene\":\"order_paid\",\"title\":\"支付成功\",\"content\":\"订单 LK2026112109311947B6C5 支付成功，柜门 A-02 已可使用。\",\"channel\":\"inbox\",\"status\":\"sent\",\"order_no\":\"LK2026112109311947B6C5\",\"created_at\":\"2026-11-21T09:31:19+08:00\"},{\"id\":\"NT20261121093119424128\",\"scene\":\"pickup_reminder\",\"title\":\"寄存凭证已生成\",\"content\":\"订单 LK2026112109311947B6C5 已锁定柜门 A-02，到场输入凭证开柜寄存。\",\"channel\":\"inbox\",\"status\":\"sent\",\"order_no\":\"LK2026112109311947B6C5\",\"created_at\":\"2026-11-21T09:31:19+08:00\"}],\"total\":15,\"unread\":15}}"
+  },
+  {
+    "name": "round2-notice-read",
+    "method": "POST",
+    "path": "/notices/NT20261121093119F3B089/read",
+    "expected": 200,
+    "status": 200,
+    "ok": true,
+    "latency_ms": 7,
+    "response": "{\"request_id\":\"a57cf283-998c-4931-8bc2-558972980950\",\"data\":{\"id\":\"NT20261121093119F3B089\",\"status\":\"read\",\"read_at\":\"2026-11-21T09:31:20+08:00\"}}"
+  }
+]

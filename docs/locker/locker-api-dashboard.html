@@ -36,19 +36,19 @@ h2:not(:first-of-type) { margin-top:46px; }
 </style></head>
 <body><div class="wrap">
   <h1>智能快寄柜 · <span>接口验收看板</span></h1>
-  <div class="sub">22 个接口 · 3 轮连续执行 · 本地 MySQL 8.0.46 (3307) + Redis (6379) · 批次 20261121-091430</div>
+  <div class="sub">22 个接口 · 3 轮连续执行 · 本地 MySQL 8.0.46 (3306) + Redis (6379) · 批次 20261121-093119</div>
   <div class="kpis">
     <div class="kpi"><div class="v">22/22</div><div class="l">覆盖接口</div></div>
     <div class="kpi"><div class="v">90</div><div class="l">累计调用</div></div>
     <div class="kpi green"><div class="v">90</div><div class="l">通过次数</div></div>
-    <div class="kpi"><div class="v">15<span style="font-size:22px">ms</span></div><div class="l">平均响应 / P95 45ms</div></div>
+    <div class="kpi"><div class="v">13<span style="font-size:22px">ms</span></div><div class="l">平均响应 / P95 50ms</div></div>
   </div>
   <div class="banner">✔ 全链路闭环：城市定位 → 附近网点 → 柜门查询 → 试算 → 下单锁柜 → 支付回调（幂等）→ 订单详情 → 临时授权 → 取出 → 超时补缴 → 余额充值入账 → 个人中心 → 站内信</div>
 
   <h2>接口执行明细</h2>
   <table>
     <tr><th>接口</th><th>所属工单</th><th>验证点</th><th>调用</th><th>通过</th><th>平均</th></tr>
-    <tr><td><code>GET /notices</code></td><td>工单01 消息通知</td><td>站内信列表</td><td>3</td><td class="ok">3</td><td>2.0 ms</td></tr><tr><td><code>POST /notices/:id/read</code></td><td>工单01 消息通知</td><td>标记已读</td><td>3</td><td class="ok">3</td><td>8.7 ms</td></tr><tr><td><code>GET /balance</code></td><td>工单02 支付</td><td>账户余额</td><td>3</td><td class="ok">3</td><td>1.3 ms</td></tr><tr><td><code>GET /balance/flows</code></td><td>工单02 支付</td><td>余额明细</td><td>3</td><td class="ok">3</td><td>1.7 ms</td></tr><tr><td><code>GET /recharges</code></td><td>工单02 支付</td><td>充值记录</td><td>3</td><td class="ok">3</td><td>2.3 ms</td></tr><tr><td><code>POST /payments/notify</code></td><td>工单02 支付</td><td>支付回调（幂等/金额校验）</td><td>10</td><td class="ok">10</td><td>24.6 ms</td></tr><tr><td><code>POST /recharges</code></td><td>工单02 支付</td><td>充值记录</td><td>3</td><td class="ok">3</td><td>17.3 ms</td></tr><tr><td><code>POST /recharges/notify</code></td><td>工单02 支付</td><td>充值回调入账</td><td>4</td><td class="ok">4</td><td>20.0 ms</td></tr><tr><td><code>GET /cities</code></td><td>工单03 首页</td><td>城市列表</td><td>3</td><td class="ok">3</td><td>14.7 ms</td></tr><tr><td><code>GET /guide</code></td><td>工单03 首页</td><td>使用引导</td><td>3</td><td class="ok">3</td><td>0.7 ms</td></tr><tr><td><code>GET /stations</code></td><td>工单03 首页</td><td>附近网点（距离排序/空柜数）</td><td>3</td><td class="ok">3</td><td>5.7 ms</td></tr><tr><td><code>GET /stations/st_001/cabinets</code></td><td>工单04 寄存</td><td>柜门实时状态</td><td>3</td><td class="ok">3</td><td>2.3 ms</td></tr><tr><td><code>POST /orders</code></td><td>工单04 寄存</td><td>下单锁柜</td><td>7</td><td class="ok">7</td><td>42.6 ms</td></tr><tr><td><code>POST /quote</code></td><td>工单04 寄存</td><td>费用试算（尺寸×时长−券）</td><td>3</td><td class="ok">3</td><td>3.7 ms</td></tr><tr><td><code>GET /orders/:order_no</code></td><td>工单05 订单</td><td>订单详情与轨迹</td><td>3</td><td class="ok">3</td><td>1.7 ms</td></tr><tr><td><code>GET /orders?status=all</code></td><td>工单05 订单</td><td>当前与历史订单</td><td>6</td><td class="ok">6</td><td>7.2 ms</td></tr><tr><td><code>POST /grants/:grant_no/use</code></td><td>工单05 订单</td><td>授权核销</td><td>9</td><td class="ok">9</td><td>19.8 ms</td></tr><tr><td><code>POST /orders/:order_no/grants</code></td><td>工单05 订单</td><td>临时开柜授权</td><td>3</td><td class="ok">3</td><td>20.7 ms</td></tr><tr><td><code>POST /orders/:order_no/overdue-pay</code></td><td>工单05 订单</td><td>超时补缴</td><td>3</td><td class="ok">3</td><td>45.7 ms</td></tr><tr><td><code>POST /orders/:order_no/pickup</code></td><td>工单05 订单</td><td>取出物品</td><td>6</td><td class="ok">6</td><td>20.3 ms</td></tr><tr><td><code>GET /coupons</code></td><td>工单06 个人中心</td><td>卡券列表</td><td>3</td><td class="ok">3</td><td>0.7 ms</td></tr><tr><td><code>GET /profile</code></td><td>工单06 个人中心</td><td>个人中心聚合</td><td>3</td><td class="ok">3</td><td>4.3 ms</td></tr>
+    <tr><td><code>GET /notices</code></td><td>工单01 消息通知</td><td>站内信列表</td><td>3</td><td class="ok">3</td><td>1.7 ms</td></tr><tr><td><code>POST /notices/:id/read</code></td><td>工单01 消息通知</td><td>标记已读</td><td>3</td><td class="ok">3</td><td>6.0 ms</td></tr><tr><td><code>GET /balance</code></td><td>工单02 支付</td><td>账户余额</td><td>3</td><td class="ok">3</td><td>1.0 ms</td></tr><tr><td><code>GET /balance/flows</code></td><td>工单02 支付</td><td>余额明细</td><td>3</td><td class="ok">3</td><td>1.3 ms</td></tr><tr><td><code>GET /recharges</code></td><td>工单02 支付</td><td>充值记录</td><td>3</td><td class="ok">3</td><td>1.0 ms</td></tr><tr><td><code>POST /payments/notify</code></td><td>工单02 支付</td><td>支付回调（幂等/金额校验）</td><td>10</td><td class="ok">10</td><td>23.6 ms</td></tr><tr><td><code>POST /recharges</code></td><td>工单02 支付</td><td>充值记录</td><td>3</td><td class="ok">3</td><td>10.7 ms</td></tr><tr><td><code>POST /recharges/notify</code></td><td>工单02 支付</td><td>充值回调入账</td><td>4</td><td class="ok">4</td><td>13.2 ms</td></tr><tr><td><code>GET /cities</code></td><td>工单03 首页</td><td>城市列表</td><td>3</td><td class="ok">3</td><td>20.0 ms</td></tr><tr><td><code>GET /guide</code></td><td>工单03 首页</td><td>使用引导</td><td>3</td><td class="ok">3</td><td>0.3 ms</td></tr><tr><td><code>GET /stations</code></td><td>工单03 首页</td><td>附近网点（距离排序/空柜数）</td><td>3</td><td class="ok">3</td><td>4.7 ms</td></tr><tr><td><code>GET /stations/st_001/cabinets</code></td><td>工单04 寄存</td><td>柜门实时状态</td><td>3</td><td class="ok">3</td><td>1.3 ms</td></tr><tr><td><code>POST /orders</code></td><td>工单04 寄存</td><td>下单锁柜</td><td>7</td><td class="ok">7</td><td>39.1 ms</td></tr><tr><td><code>POST /quote</code></td><td>工单04 寄存</td><td>费用试算（尺寸×时长−券）</td><td>3</td><td class="ok">3</td><td>3.3 ms</td></tr><tr><td><code>GET /orders/:order_no</code></td><td>工单05 订单</td><td>订单详情与轨迹</td><td>3</td><td class="ok">3</td><td>1.0 ms</td></tr><tr><td><code>GET /orders?status=all</code></td><td>工单05 订单</td><td>当前与历史订单</td><td>6</td><td class="ok">6</td><td>4.3 ms</td></tr><tr><td><code>POST /grants/:grant_no/use</code></td><td>工单05 订单</td><td>授权核销</td><td>9</td><td class="ok">9</td><td>19.9 ms</td></tr><tr><td><code>POST /orders/:order_no/grants</code></td><td>工单05 订单</td><td>临时开柜授权</td><td>3</td><td class="ok">3</td><td>20.7 ms</td></tr><tr><td><code>POST /orders/:order_no/overdue-pay</code></td><td>工单05 订单</td><td>超时补缴</td><td>3</td><td class="ok">3</td><td>25.3 ms</td></tr><tr><td><code>POST /orders/:order_no/pickup</code></td><td>工单05 订单</td><td>取出物品</td><td>6</td><td class="ok">6</td><td>17.5 ms</td></tr><tr><td><code>GET /coupons</code></td><td>工单06 个人中心</td><td>卡券列表</td><td>3</td><td class="ok">3</td><td>0.7 ms</td></tr><tr><td><code>GET /profile</code></td><td>工单06 个人中心</td><td>个人中心聚合</td><td>3</td><td class="ok">3</td><td>1.0 ms</td></tr>
   </table>
 
   <h2>每个接口真实响应（第 3 轮）</h2>
@@ -61,36 +61,36 @@ h2:not(:first-of-type) { margin-top:46px; }
           <h3>站内信列表</h3>
           <code class="req">GET /api/v1/locker/notices?unread_only=true</code>
           <pre>{
-  "request_id": "9ee79080-9c8c-4762-b6e4-b40b1494db46",
+  "request_id": "2e6659f6-d79d-4f64-9b3c-fd5cbd0bb437",
   "data": {
     "items": [
       {
-        "id": "NT20261121091431463849",
+        "id": "NT20261121093120F386C6",
         "scene": "order_completed",
         "title": "超时费已补缴",
-        "content": "订单 LK20261121091431AF907B 补缴 1350 分，柜门已释放。",
+        "content": "订单 LK20261121093120053CFD 补缴 1350 分，柜门已释放。",
         "channel": "inbox",
         "status": "sent",
-        "order_no": "LK20261121091431AF907B",
-        "created_at": "2026-11-21T09:14:31+08:00"
+        "order_no": "LK20261121093120053CFD",
+        "created_at": "2026-11-21T09:31:20+08:00"
       },
       {
-        "id": "NT2026112109143125009A",
+        "id": "NT20261121093120E5E855",
         "scene": "order_paid",
         "title": "支付成功",
-        "content": "订单 LK20261121091431AF907B 支付成功，柜门 C-02 已可使用。",
+        "content": "订单 LK20261121093120053CFD 支付成功，柜门 C-02 已可使用。",
         "channel": "inbox",
         "status": "sent",
-        "order_no": "LK20261121091431AF907B",
-        "created_at": "2026-11-21T09:14:31+08:00"
+        "order_no": "LK20261121093120053CFD",
+        "created_at": "2026-11-21T09:31:20+08:00"
       },
       {
-        "id": "NT20261121091431363E53",
+        "id": "NT20261121093120D35676",
         "scene": "pickup_reminder",
         "title": "寄存凭证已生成",
-        "content": "订单 LK2026112109143
+        "content": "订单 LK2026112109312
 ... (已截断)</pre>
-          <div class="meta">3 次调用 · 3 次通过 · 平均 2.0ms · 峰值 3ms</div>
+          <div class="meta">3 次调用 · 3 次通过 · 平均 1.7ms · 峰值 2ms</div>
         </section>
         <section class="card">
           <div class="card-head">
@@ -98,16 +98,16 @@ h2:not(:first-of-type) { margin-top:46px; }
             <span class="status ok">200</span>
           </div>
           <h3>标记已读</h3>
-          <code class="req">POST /api/v1/locker/notices/NT20261121091431463849/read</code>
+          <code class="req">POST /api/v1/locker/notices/NT20261121093120F386C6/read</code>
           <pre>{
-  "request_id": "a0a6ab31-bfee-4300-b366-67b6602bc057",
+  "request_id": "00d440ea-cb20-4274-9716-b4eb9383cbdc",
   "data": {
-    "id": "NT20261121091431463849",
+    "id": "NT20261121093120F386C6",
     "status": "read",
-    "read_at": "2026-11-21T09:14:32+08:00"
+    "read_at": "2026-11-21T09:31:20+08:00"
   }
 }</pre>
-          <div class="meta">3 次调用 · 3 次通过 · 平均 8.7ms · 峰值 13ms</div>
+          <div class="meta">3 次调用 · 3 次通过 · 平均 6.0ms · 峰值 7ms</div>
         </section>
         <section class="card">
           <div class="card-head">
@@ -117,14 +117,14 @@ h2:not(:first-of-type) { margin-top:46px; }
           <h3>账户余额</h3>
           <code class="req">GET /api/v1/locker/balance</code>
           <pre>{
-  "request_id": "9682a627-7355-4141-b059-6cedd60b77c5",
+  "request_id": "17b4f3fa-ff7f-4098-958d-4d99c270a54a",
   "data": {
     "user_id": "u_1001",
     "balance_fen": 20000,
     "frozen_fen": 0
   }
 }</pre>
-          <div class="meta">3 次调用 · 3 次通过 · 平均 1.3ms · 峰值 2ms</div>
+          <div class="meta">3 次调用 · 3 次通过 · 平均 1.0ms · 峰值 1ms</div>
         </section>
         <section class="card">
           <div class="card-head">
@@ -134,26 +134,26 @@ h2:not(:first-of-type) { margin-top:46px; }
           <h3>余额明细</h3>
           <code class="req">GET /api/v1/locker/balance/flows</code>
           <pre>{
-  "request_id": "fc6daf21-35be-4ccf-8db6-e3ef7ed3d675",
+  "request_id": "85ff5418-a253-484d-ae8e-ec54b1a4042b",
   "data": {
     "items": [
       {
-        "flow_no": "FL202611210914310EDFA4",
+        "flow_no": "FL20261121093120DCA44B",
         "biz_type": "recharge",
         "amount_fen": 5000,
         "before_fen": 15000,
         "after_fen": 20000,
-        "ref_no": "RC20261121091431A785DC",
-        "created_at": "2026-11-21T09:14:31+08:00"
+        "ref_no": "RC20261121093120F8D6D2",
+        "created_at": "2026-11-21T09:31:20+08:00"
       },
       {
-        "flow_no": "FL20261121091430A356CD",
+        "flow_no": "FL2026112109311928C9B7",
         "biz_type": "recharge",
         "amount_fen": 10000,
         "before_fen": 5000,
         "after_fen": 15000,
-        "ref_no": "RC20261121091430393672",
-        "created_at": "2026-11-21T09:14:30+08:00"
+        "ref_no": "RC20261121093119ACEADB",
+        "created_at": "2026-11-21T09:31:19+08:00"
       }
     ],
     "total": 2,
@@ -161,7 +161,7 @@ h2:not(:first-of-type) { margin-top:46px; }
     "page_size": 20
   }
 }</pre>
-          <div class="meta">3 次调用 · 3 次通过 · 平均 1.7ms · 峰值 3ms</div>
+          <div class="meta">3 次调用 · 3 次通过 · 平均 1.3ms · 峰值 2ms</div>
         </section>
         <section class="card">
           <div class="card-head">
@@ -171,39 +171,39 @@ h2:not(:first-of-type) { margin-top:46px; }
           <h3>充值记录</h3>
           <code class="req">GET /api/v1/locker/recharges</code>
           <pre>{
-  "request_id": "98e9d824-9ca6-4c8b-8498-ae12407e4c25",
+  "request_id": "cb4fbad1-8b98-44f8-832d-41e9d129bebc",
   "data": {
     "items": [
       {
-        "recharge_no": "RC20261121091432085646",
+        "recharge_no": "RC2026112109312074943A",
         "amount_fen": 2000,
         "channel": "alipay",
         "status": "success",
-        "idempotency_key": "RC20261121091432085646",
-        "created_at": "2026-11-21T09:14:32+08:00"
+        "idempotency_key": "RC2026112109312074943A",
+        "created_at": "2026-11-21T09:31:20+08:00"
       },
       {
-        "recharge_no": "RC20261121091431A785DC",
+        "recharge_no": "RC20261121093120F8D6D2",
         "amount_fen": 5000,
         "channel": "alipay",
         "status": "success",
-        "idempotency_key": "RC20261121091431A785DC",
-        "created_at": "2026-11-21T09:14:31+08:00"
+        "idempotency_key": "RC20261121093120F8D6D2",
+        "created_at": "2026-11-21T09:31:20+08:00"
       },
       {
-        "recharge_no": "RC20261121091430393672",
+        "recharge_no": "RC20261121093119ACEADB",
         "amount_fen": 10000,
         "channel": "alipay",
         "status": "success",
-        "idempotency_key": "RC20261121091430393672",
-        "created_at": "2026-11-21T09:14:30+08:00"
+        "idempotency_key": "RC20261121093119ACEADB",
+        "created_at": "2026-11-21T09:31:19+08:00"
       }
     ],
     "total": 3,
     "page": 1,
     "page_si
 ... (已截断)</pre>
-          <div class="meta">3 次调用 · 3 次通过 · 平均 2.3ms · 峰值 5ms</div>
+          <div class="meta">3 次调用 · 3 次通过 · 平均 1.0ms · 峰值 1ms</div>
         </section>
         <section class="card">
           <div class="card-head">
@@ -213,15 +213,15 @@ h2:not(:first-of-type) { margin-top:46px; }
           <h3>支付回调（幂等/金额校验）</h3>
           <code class="req">POST /api/v1/locker/payments/notify</code>
           <pre>{
-  "request_id": "5223bc72-e49f-4435-831e-2e9b6533c975",
+  "request_id": "c3b41bb7-b23d-4265-b898-68004e2008bd",
   "data": {
-    "order_no": "LK20261121091431EDA09A",
+    "order_no": "LK20261121093120B1B3A6",
     "status": "active",
-    "paid_at": "2026-11-21T09:14:31+08:00",
+    "paid_at": "2026-11-21T09:31:20+08:00",
     "duplicated": false
   }
 }</pre>
-          <div class="meta">10 次调用 · 10 次通过 · 平均 24.6ms · 峰值 65ms</div>
+          <div class="meta">10 次调用 · 10 次通过 · 平均 23.6ms · 峰值 65ms</div>
         </section>
         <section class="card">
           <div class="card-head">
@@ -231,17 +231,17 @@ h2:not(:first-of-type) { margin-top:46px; }
           <h3>充值记录</h3>
           <code class="req">POST /api/v1/locker/recharges</code>
           <pre>{
-  "request_id": "aa642dca-da05-4c90-99be-1fda33e8412f",
+  "request_id": "d9da6c67-9d26-48c7-8cc2-c8a4b7767d60",
   "data": {
-    "recharge_no": "RC20261121091432085646",
+    "recharge_no": "RC2026112109312074943A",
     "amount_fen": 2000,
     "channel": "alipay",
     "status": "processing",
-    "idempotency_key": "RC20261121091432085646",
-    "created_at": "2026-11-21T09:14:32+08:00"
+    "idempotency_key": "RC2026112109312074943A",
+    "created_at": "2026-11-21T09:31:20+08:00"
   }
 }</pre>
-          <div class="meta">3 次调用 · 3 次通过 · 平均 17.3ms · 峰值 28ms</div>
+          <div class="meta">3 次调用 · 3 次通过 · 平均 10.7ms · 峰值 11ms</div>
         </section>
         <section class="card">
           <div class="card-head">
@@ -251,16 +251,16 @@ h2:not(:first-of-type) { margin-top:46px; }
           <h3>充值回调入账</h3>
           <code class="req">POST /api/v1/locker/recharges/notify</code>
           <pre>{
-  "request_id": "14b10a31-2b15-4a5f-97f5-6a2996a2161b",
+  "request_id": "6bd35bbb-3cc8-45c3-9815-b660c646fc31",
   "data": {
-    "recharge_no": "RC20261121091432085646",
+    "recharge_no": "RC2026112109312074943A",
     "status": "success",
     "balance_fen": 22000,
-    "flow_no": "FL202611210914329F0FCA",
+    "flow_no": "FL20261121093120292F1A",
     "duplicated": false
   }
 }</pre>
-          <div class="meta">4 次调用 · 4 次通过 · 平均 20.0ms · 峰值 43ms</div>
+          <div class="meta">4 次调用 · 4 次通过 · 平均 13.2ms · 峰值 20ms</div>
         </section>
         <section class="card">
           <div class="card-head">
@@ -270,7 +270,7 @@ h2:not(:first-of-type) { margin-top:46px; }
           <h3>城市列表</h3>
           <code class="req">GET /api/v1/locker/cities</code>
           <pre>{
-  "request_id": "05edd5b1-3c30-462a-a3ca-9453d4230d06",
+  "request_id": "41f03700-62fb-40f9-bfca-6dc5d1489a16",
   "data": {
     "items": [
       {
@@ -295,7 +295,7 @@ h2:not(:first-of-type) { margin-top:46px; }
     "total": 3
   }
 }</pre>
-          <div class="meta">3 次调用 · 3 次通过 · 平均 14.7ms · 峰值 41ms</div>
+          <div class="meta">3 次调用 · 3 次通过 · 平均 20.0ms · 峰值 58ms</div>
         </section>
         <section class="card">
           <div class="card-head">
@@ -305,7 +305,7 @@ h2:not(:first-of-type) { margin-top:46px; }
           <h3>使用引导</h3>
           <code class="req">GET /api/v1/locker/guide</code>
           <pre>{
-  "request_id": "aaf12f38-dbaf-40c5-ab86-0e2ae86b4f0b",
+  "request_id": "88f8dc3e-6411-486f-af9c-77e321270def",
   "data": {
     "version": "v1.0",
     "items": [
@@ -328,7 +328,7 @@ h2:not(:first-of-type) { margin-top:46px; }
     ]
   }
 }</pre>
-          <div class="meta">3 次调用 · 3 次通过 · 平均 0.7ms · 峰值 1ms</div>
+          <div class="meta">3 次调用 · 3 次通过 · 平均 0.3ms · 峰值 1ms</div>
         </section>
         <section class="card">
           <div class="card-head">
@@ -338,7 +338,7 @@ h2:not(:first-of-type) { margin-top:46px; }
           <h3>附近网点（距离排序/空柜数）</h3>
           <code class="req">GET /api/v1/locker/stations?city_id=city_512&lat=33.9631&lng=118.2752</code>
           <pre>{
-  "request_id": "7718ba1f-9832-49d4-ba1e-066d9bfcf6cd",
+  "request_id": "501d5cc3-27d2-4703-8e9c-ffd922793822",
   "data": {
     "items": [
       {
@@ -377,7 +377,7 @@ h2:not(:first-of-type) { margin-top:46px; }
     "page_size": 20
   }
 }</pre>
-          <div class="meta">3 次调用 · 3 次通过 · 平均 5.7ms · 峰值 11ms</div>
+          <div class="meta">3 次调用 · 3 次通过 · 平均 4.7ms · 峰值 11ms</div>
         </section>
         <section class="card">
           <div class="card-head">
@@ -387,7 +387,7 @@ h2:not(:first-of-type) { margin-top:46px; }
           <h3>柜门实时状态</h3>
           <code class="req">GET /api/v1/locker/stations/st_001/cabinets</code>
           <pre>{
-  "request_id": "dc405894-f31c-4603-b440-9d6e8e126cbd",
+  "request_id": "49292225-6298-4363-b939-248e96c81f62",
   "data": {
     "station_id": "st_001",
     "station_name": "宿迁学院寄存点",
@@ -433,7 +433,7 @@ h2:not(:first-of-type) { margin-top:46px; }
         "id": "cab_001_07",
         
 ... (已截断)</pre>
-          <div class="meta">3 次调用 · 3 次通过 · 平均 2.3ms · 峰值 3ms</div>
+          <div class="meta">3 次调用 · 3 次通过 · 平均 1.3ms · 峰值 2ms</div>
         </section>
         <section class="card">
           <div class="card-head">
@@ -443,9 +443,9 @@ h2:not(:first-of-type) { margin-top:46px; }
           <h3>下单锁柜</h3>
           <code class="req">POST /api/v1/locker/orders</code>
           <pre>{
-  "request_id": "3cc0544e-365e-47fb-b48f-47b76c359730",
+  "request_id": "9d6feec9-c8bf-407f-a916-23edfc41e94f",
   "data": {
-    "order_no": "LK20261121091431EDA09A",
+    "order_no": "LK20261121093120B1B3A6",
     "station_id": "st_002",
     "station_name": "宿迁高铁站寄存点",
     "cabinet_code": "B-05",
@@ -456,17 +456,17 @@ h2:not(:first-of-type) { margin-top:46px; }
     "coupon_fen": 0,
     "total_fen": 3750,
     "status": "pending_pay",
-    "start_at": "2026-11-21T09:14:31+08:00",
-    "end_at": "2026-11-21T14:14:31+08:00",
+    "start_at": "2026-11-21T09:31:20+08:00",
+    "end_at": "2026-11-21T14:31:20+08:00",
     "pay": {
-      "pay_no": "PAY2026112109143191FE04",
+      "pay_no": "PAY20261121093120427526",
       "amount_fen": 3750,
       "channel": "alipay",
-      "idempotency_key": "PAY2026112109143191FE04"
+      "idempotency_key": "PAY20261121093120427526"
     }
   }
 }</pre>
-          <div class="meta">7 次调用 · 7 次通过 · 平均 42.6ms · 峰值 78ms</div>
+          <div class="meta">7 次调用 · 7 次通过 · 平均 39.1ms · 峰值 64ms</div>
         </section>
         <section class="card">
           <div class="card-head">
@@ -476,7 +476,7 @@ h2:not(:first-of-type) { margin-top:46px; }
           <h3>费用试算（尺寸×时长−券）</h3>
           <code class="req">POST /api/v1/locker/quote</code>
           <pre>{
-  "request_id": "5a76a42b-2e75-426c-a645-1fc1d48205a6",
+  "request_id": "f7634e54-4bc9-4663-9a78-47d34bf37c4b",
   "data": {
     "size": "M",
     "hours": 5,
@@ -487,7 +487,7 @@ h2:not(:first-of-type) { margin-top:46px; }
     "total_fen": 3750
   }
 }</pre>
-          <div class="meta">3 次调用 · 3 次通过 · 平均 3.7ms · 峰值 9ms</div>
+          <div class="meta">3 次调用 · 3 次通过 · 平均 3.3ms · 峰值 9ms</div>
         </section>
         <section class="card">
           <div class="card-head">
@@ -495,26 +495,26 @@ h2:not(:first-of-type) { margin-top:46px; }
             <span class="status ok">200</span>
           </div>
           <h3>订单详情与轨迹</h3>
-          <code class="req">GET /api/v1/locker/orders/LK20261121091431EDA09A</code>
+          <code class="req">GET /api/v1/locker/orders/LK20261121093120B1B3A6</code>
           <pre>{
-  "request_id": "d11e97b8-ff6e-4790-86ba-39d0c4d03d1b",
+  "request_id": "c8c57eaa-5384-4504-8444-98bf3a29140c",
   "data": {
-    "order_no": "LK20261121091431EDA09A",
+    "order_no": "LK20261121093120B1B3A6",
     "station_name": "宿迁高铁站寄存点",
     "cabinet_code": "B-05",
     "size": "M",
     "status": "active",
     "total_fen": 3750,
     "overdue_fen": 0,
-    "end_at": "2026-11-21T14:14:31+08:00",
+    "end_at": "2026-11-21T14:31:20+08:00",
     "hours_left": 5,
     "station_address": "宿迁站东广场一层",
     "cabinet_size": "M",
     "rent_fen": 2250,
     "deposit_fen": 1500,
     "coupon_fen": 0,
-    "start_at": "2026-11-21T09:14:31+08:00",
-    "paid_at": "2026-11-21T09:14:31+08:00",
+    "start_at": "2026-11-21T09:31:20+08:00",
+    "paid_at": "2026-11-21T09:31:20+08:00",
     "actions": [
       "pickup",
       "grant"
@@ -523,17 +523,17 @@ h2:not(:first-of-type) { margin-top:46px; }
       {
         "node": "created",
         "note": "下单锁柜 B-05，5 小时",
-        "at": "2026-11-21T09:14:31+08:00"
+        "at": "2026-11-21T09:31:20+08:00"
       },
       {
         "node": "paid",
         "note": "支付成功 3750 分",
-        "at": "2026-11-21T09:14:31+08:00"
+        "at": "2026-11-21T09:31:20+08:00"
       }
     ]
   }
 }</pre>
-          <div class="meta">3 次调用 · 3 次通过 · 平均 1.7ms · 峰值 3ms</div>
+          <div class="meta">3 次调用 · 3 次通过 · 平均 1.0ms · 峰值 1ms</div>
         </section>
         <section class="card">
           <div class="card-head">
@@ -543,33 +543,33 @@ h2:not(:first-of-type) { margin-top:46px; }
           <h3>当前与历史订单</h3>
           <code class="req">GET /api/v1/locker/orders?status=all</code>
           <pre>{
-  "request_id": "6131da6c-1ab4-43e3-9592-a3cbfada94ca",
+  "request_id": "f2a121d5-75fd-4c91-a482-1962db8880a6",
   "data": {
     "items": [
       {
-        "order_no": "LK20261121091431EDA09A",
+        "order_no": "LK20261121093120B1B3A6",
         "station_name": "宿迁高铁站寄存点",
         "cabinet_code": "B-05",
         "size": "M",
         "status": "active",
         "total_fen": 3750,
         "overdue_fen": 0,
-        "end_at": "2026-11-21T14:14:31+08:00",
+        "end_at": "2026-11-21T14:31:20+08:00",
         "hours_left": 5
       },
       {
-        "order_no": "LK2026112109143155DF4A",
+        "order_no": "LK202611210931194F0A97",
         "station_name": "宿迁高铁站寄存点",
         "cabinet_code": "B-02",
         "size": "M",
         "status": "completed",
         "total_fen": 1950,
         "overdue_fen": 1350,
-        "end_at": "2026-11-21T07:14:31+08:00",
+        "end_at": "2026-11-21T07:31:19+08:00",
         "hours_left": 0
       },
       {
-        "order_no": "LK20261121091430A87599",
+        "order_no": "LK202611210931191C8A19",
         "station_name": "宿迁学院寄存点",
         "cabinet_code": "A-08",
         "size": "M",
@@ -577,7 +577,7 @@ h2:not(:first-of-type) { margin-top:46px; }
         "total_fen": 2950,
  
 ... (已截断)</pre>
-          <div class="meta">6 次调用 · 6 次通过 · 平均 7.2ms · 峰值 14ms</div>
+          <div class="meta">6 次调用 · 6 次通过 · 平均 4.3ms · 峰值 7ms</div>
         </section>
         <section class="card">
           <div class="card-head">
@@ -585,19 +585,19 @@ h2:not(:first-of-type) { margin-top:46px; }
             <span class="status ok">200</span>
           </div>
           <h3>授权核销</h3>
-          <code class="req">POST /api/v1/locker/grants/GR202611210914319C7916/use</code>
+          <code class="req">POST /api/v1/locker/grants/GR20261121093120696777/use</code>
           <pre>{
-  "request_id": "7a1a1da9-3e1f-4620-9bee-c67f651f0930",
+  "request_id": "5e13b619-82b0-471e-8431-403c9d535e96",
   "data": {
-    "grant_no": "GR202611210914319C7916",
-    "order_no": "LK20261121091431EDA09A",
-    "expire_at": "2026-11-21T09:29:31+08:00",
+    "grant_no": "GR20261121093120696777",
+    "order_no": "LK20261121093120B1B3A6",
+    "expire_at": "2026-11-21T09:46:20+08:00",
     "remain": 1,
     "status": "active",
     "cabinet_status": "opening"
   }
 }</pre>
-          <div class="meta">9 次调用 · 9 次通过 · 平均 19.8ms · 峰值 39ms</div>
+          <div class="meta">9 次调用 · 9 次通过 · 平均 19.9ms · 峰值 54ms</div>
         </section>
         <section class="card">
           <div class="card-head">
@@ -605,18 +605,18 @@ h2:not(:first-of-type) { margin-top:46px; }
             <span class="status ok">201</span>
           </div>
           <h3>临时开柜授权</h3>
-          <code class="req">POST /api/v1/locker/orders/LK20261121091431EDA09A/grants</code>
+          <code class="req">POST /api/v1/locker/orders/LK20261121093120B1B3A6/grants</code>
           <pre>{
-  "request_id": "f6ce60eb-ea49-47b5-b8bd-3606a3505316",
+  "request_id": "c3bff2b4-91ca-4496-afac-c90b98005433",
   "data": {
-    "grant_no": "GR202611210914319C7916",
-    "order_no": "LK20261121091431EDA09A",
-    "expire_at": "2026-11-21T09:29:31+08:00",
+    "grant_no": "GR20261121093120696777",
+    "order_no": "LK20261121093120B1B3A6",
+    "expire_at": "2026-11-21T09:46:20+08:00",
     "remain": 2,
     "status": "active"
   }
 }</pre>
-          <div class="meta">3 次调用 · 3 次通过 · 平均 20.7ms · 峰值 24ms</div>
+          <div class="meta">3 次调用 · 3 次通过 · 平均 20.7ms · 峰值 29ms</div>
         </section>
         <section class="card">
           <div class="card-head">
@@ -624,18 +624,18 @@ h2:not(:first-of-type) { margin-top:46px; }
             <span class="status ok">200</span>
           </div>
           <h3>超时补缴</h3>
-          <code class="req">POST /api/v1/locker/orders/LK20261121091431AF907B/overdue-pay</code>
+          <code class="req">POST /api/v1/locker/orders/LK20261121093120053CFD/overdue-pay</code>
           <pre>{
-  "request_id": "9d717934-6173-4967-9ff3-e7b3182c1ef6",
+  "request_id": "e8cd90d1-ecfc-498d-bee0-6e14efce2a5a",
   "data": {
-    "order_no": "LK20261121091431AF907B",
+    "order_no": "LK20261121093120053CFD",
     "status": "completed",
     "overdue_hours": 2,
     "overdue_fen": 1350,
-    "end_at": "2026-11-21T09:14:31+08:00"
+    "end_at": "2026-11-21T09:31:20+08:00"
   }
 }</pre>
-          <div class="meta">3 次调用 · 3 次通过 · 平均 45.7ms · 峰值 68ms</div>
+          <div class="meta">3 次调用 · 3 次通过 · 平均 25.3ms · 峰值 26ms</div>
         </section>
         <section class="card">
           <div class="card-head">
@@ -643,18 +643,18 @@ h2:not(:first-of-type) { margin-top:46px; }
             <span class="status ok">200</span>
           </div>
           <h3>取出物品</h3>
-          <code class="req">POST /api/v1/locker/orders/LK20261121091431EDA09A/pickup</code>
+          <code class="req">POST /api/v1/locker/orders/LK20261121093120B1B3A6/pickup</code>
           <pre>{
-  "request_id": "1df253b2-e2c5-41a1-8a47-7bdb69861ed8",
+  "request_id": "75a03c59-5454-4aeb-967a-fe991bb2599e",
   "data": {
-    "order_no": "LK20261121091431EDA09A",
+    "order_no": "LK20261121093120B1B3A6",
     "status": "completed",
-    "pickup_at": "2026-11-21T09:14:31+08:00",
+    "pickup_at": "2026-11-21T09:31:20+08:00",
     "cabinet_code": "B-05",
     "cabinet_status": "free"
   }
 }</pre>
-          <div class="meta">6 次调用 · 6 次通过 · 平均 20.3ms · 峰值 54ms</div>
+          <div class="meta">6 次调用 · 6 次通过 · 平均 17.5ms · 峰值 50ms</div>
         </section>
         <section class="card">
           <div class="card-head">
@@ -664,7 +664,7 @@ h2:not(:first-of-type) { margin-top:46px; }
           <h3>卡券列表</h3>
           <code class="req">GET /api/v1/locker/coupons?status=all</code>
           <pre>{
-  "request_id": "b0ef78a8-564d-4bbe-b1f3-a0603e531c4f",
+  "request_id": "b4c4d428-16a7-4512-a37a-98ea23523f7e",
   "data": {
     "items": [
       {
@@ -673,7 +673,7 @@ h2:not(:first-of-type) { margin-top:46px; }
         "scope": "M",
         "face_fen": 300,
         "min_fen": 900,
-        "valid_to": "2026-11-20T09:10:59+08:00",
+        "valid_to": "2026-11-20T09:30:50+08:00",
         "status": "expired"
       },
       {
@@ -682,7 +682,7 @@ h2:not(:first-of-type) { margin-top:46px; }
         "scope": "all",
         "face_fen": 500,
         "min_fen": 1500,
-        "valid_to": "2027-11-21T09:10:59+08:00",
+        "valid_to": "2027-11-21T09:30:50+08:00",
         "status": "used"
       },
       {
@@ -691,7 +691,7 @@ h2:not(:first-of-type) { margin-top:46px; }
         "scope": "all",
         "face_fen": 800,
         "min_fen": 2000,
-        "valid_to": "2027-11-21T09:10:59+08:00",
+        "valid_to": "2027-11-21T09:30:50+08:00",
         "status": "used"
       }
     ],
@@ -708,7 +708,7 @@ h2:not(:first-of-type) { margin-top:46px; }
           <h3>个人中心聚合</h3>
           <code class="req">GET /api/v1/locker/profile</code>
           <pre>{
-  "request_id": "34b6ce85-7b0a-46cb-a10a-f1d445766c41",
+  "request_id": "7813dae4-0723-4e03-8189-697a40c73db3",
   "data": {
     "user_id": "u_1001",
     "nickname": "宿迁用户",
@@ -747,7 +747,7 @@ h2:not(:first-of-type) { margin-top:46px; }
     }
   }
 }</pre>
-          <div class="meta">3 次调用 · 3 次通过 · 平均 4.3ms · 峰值 11ms</div>
+          <div class="meta">3 次调用 · 3 次通过 · 平均 1.0ms · 峰值 1ms</div>
         </section></div>
   <div class="foot">数据来源：docs/locker/test-evidence/round1-3 · 由 scripts/build_locker_report.py 自动生成，禁止手工编辑。</div>
 </div></body></html>

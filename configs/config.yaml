@@ -29,10 +29,10 @@ services:
 
 database:
   driver: mysql
-  dsn: "root:@tcp(127.0.0.1:3307)/bw_locker?charset=utf8mb4&parseTime=True&loc=Local"
+  dsn: "root:root@tcp(127.0.0.1:3306)/bw_locker?charset=utf8mb4&parseTime=True&loc=Local"
 
 mysql:
-  dsn: "root:@tcp(127.0.0.1:3307)/bw_locker?charset=utf8mb4&parseTime=True&loc=Local"
+  dsn: "root:root@tcp(127.0.0.1:3306)/bw_locker?charset=utf8mb4&parseTime=True&loc=Local"
   max_idle_conns: 10
   max_open_conns: 100
   conn_max_lifetime_seconds: 3600
@@ -263,3 +263,4 @@ log:
     max_backups: 14
     max_age_days: 7
     compress: true
+

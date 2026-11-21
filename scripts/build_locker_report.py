@@ -110,7 +110,7 @@ def main():
     md.append(f"- 覆盖接口：**{len(stats)} / 22**，每个接口连续执行 **3 轮**，合计 **{total}** 次调用。")
     md.append(f"- 通过：**{passed}**，失败：**{total - passed}**，通过率 **{passed / total * 100:.1f}%**。")
     md.append(f"- 平均响应 {avg:.1f} ms，P95 {{p95}} ms（最慢单次 {max(c['latency_ms'] for c in calls)} ms，含首轮建连）。".replace("{p95}", f"{p95:.1f}"))
-    md.append("- 运行环境：Go 1.27.1 / MySQL 8.0.46（127.0.0.1:3307 独立实例，库 `bw_locker`）/ Redis（127.0.0.1:6379）/ gateway 8080。\n")
+    md.append("- 运行环境：Go 1.27.1 / MySQL 8.0.46（127.0.0.1:3306 本机实例，库 `bw_locker`）/ Redis（127.0.0.1:6379）/ gateway 8080。\n")
 
     md.append("## 2. 接口明细\n")
     md.append("| 接口 | 所属工单 | 验证点 | 调用 | 通过 | 平均耗时 | 最大耗时 |")
@@ -138,7 +138,7 @@ def main():
     md.append("- Redis 仅保留缓存与幂等键，柜门锁 key 在请求结束后释放。\n")
 
     md.append("## 5. 复跑方式\n")
-    md.append("```powershell\n# 1) 启动本地 MySQL(3307)、Redis(6379)，建库 bw_locker\n# 2) 启动网关\ngo run ./cmd/gateway\n# 3) 执行 3 轮验收\npwsh -File scripts/locker-api-test.ps1\n# 4) 重新生成报告\npython scripts/build_locker_report.py\n```\n")
+    md.append("```powershell\n# 1) 启动本机 MySQL(3306, root/root) 与 Redis(6379)，建库 bw_locker\n# 2) 启动网关\ngo run ./cmd/gateway\n# 3) 执行 3 轮验收\npwsh -File scripts/locker-api-test.ps1\n# 4) 重新生成报告\npython scripts/build_locker_report.py\n```\n")
     md.append("原始证据：`docs/locker/test-evidence/*.json`（逐次调用的 URL、状态码、耗时、响应体）。\n")
 
     md_text = "\n".join(md)
@@ -204,7 +204,7 @@ h2:not(:first-of-type) {{ margin-top:46px; }}
 </style></head>
 <body><div class="wrap">
   <h1>智能快寄柜 · <span>接口验收看板</span></h1>
-  <div class="sub">22 个接口 · 3 轮连续执行 · 本地 MySQL 8.0.46 (3307) + Redis (6379) · 批次 {stamp}</div>
+  <div class="sub">22 个接口 · 3 轮连续执行 · 本地 MySQL 8.0.46 (3306) + Redis (6379) · 批次 {stamp}</div>
   <div class="kpis">
     <div class="kpi"><div class="v">{len(stats)}/22</div><div class="l">覆盖接口</div></div>
     <div class="kpi"><div class="v">{total}</div><div class="l">累计调用</div></div>
@@ -234,4 +234,7 @@ h2:not(:first-of-type) {{ margin-top:46px; }}
 
 if __name__ == "__main__":
     main()
+
+
+
 
