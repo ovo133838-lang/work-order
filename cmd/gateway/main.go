@@ -14,6 +14,7 @@ import (
 
 	"github.com/BwCloudWeGo/bw-cli/internal/gateway/client"
 	"github.com/BwCloudWeGo/bw-cli/internal/gateway/router"
+	"github.com/BwCloudWeGo/bw-cli/internal/locker/bootstrap"
 	"github.com/BwCloudWeGo/bw-cli/pkg/config"
 	"github.com/BwCloudWeGo/bw-cli/pkg/logger"
 	"github.com/BwCloudWeGo/bw-cli/pkg/observability"
@@ -25,6 +26,7 @@ func main() {
 		panic(err)
 	}
 	cfg := config.MustGlobal()
+	applyEnvOverrides(cfg)
 	gatewayServiceName := cfg.ServiceName("gateway")
 	cfg.Log.Service = gatewayServiceName
 	cfg.Log = logger.WithDailyFileName(cfg.Log, time.Now())
@@ -43,7 +45,14 @@ func main() {
 	}
 	defer clients.Close()
 
-	engine := router.New(clients, log, cfg.Middleware)
+	// 装配智能快寄柜业务模块（MySQL + Redis），失败直接退出避免半启动。
+	lockerModule, err := bootstrap.New(cfg, log)
+	if err != nil {
+		log.Fatal("initialize locker module failed", zap.Error(err))
+	}
+	defer lockerModule.Close()
+
+	engine := router.New(clients, lockerModule.Handler, log, cfg.Middleware)
 	addr := fmt.Sprintf("%s:%d", cfg.HTTP.Host, cfg.HTTP.Port)
 	server := &http.Server{
 		Addr:         addr,
@@ -67,6 +76,23 @@ func main() {
 	}()
 
 	waitForShutdown(server, log)
+}
+
+// applyEnvOverrides 允许通过环境变量覆盖本地数据库与 Redis 连接，避免把真实密码写进配置文件。
+func applyEnvOverrides(cfg *config.Config) {
+	if v := os.Getenv("BW_MYSQL_DSN"); v != "" {
+		cfg.Database.DSN = v
+		cfg.MySQL.DSN = v
+	}
+	if v := os.Getenv("BW_DB_DRIVER"); v != "" {
+		cfg.Database.Driver = v
+	}
+	if v := os.Getenv("BW_REDIS_ADDR"); v != "" {
+		cfg.Redis.Addr = v
+	}
+	if v := os.Getenv("BW_REDIS_PASSWORD"); v != "" {
+		cfg.Redis.Password = v
+	}
 }
 
 func printStartupFailure(addr string, err error) {

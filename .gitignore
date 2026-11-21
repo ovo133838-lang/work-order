@@ -12,3 +12,6 @@ docs/superpowers/
 /graphify-out/
 /AGENTS.md
 /CLAUDE.md
+
+# 本地独立 MySQL 实例数据目录（端口 3307，仅用于本项目联调）
+/.localdb/

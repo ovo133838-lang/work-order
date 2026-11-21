@@ -158,7 +158,23 @@ type Config struct {
 	Alipay        alipayx.Config           `mapstructure:"alipay" yaml:"alipay"`
 	Nacos         nacosx.Config            `mapstructure:"nacos" yaml:"nacos"`
 	Middleware    MiddlewareConfig         `mapstructure:"middleware" yaml:"middleware"`
+	Locker        LockerConfig             `mapstructure:"locker" yaml:"locker"`
 	Log           logger.Config            `mapstructure:"log" yaml:"log"`
+}
+
+// LockerConfig 配置智能快寄柜业务的计费、并发锁与临时授权参数，金额单位为分。
+type LockerConfig struct {
+	PriceSFen             int64   `mapstructure:"price_s_fen" yaml:"price_s_fen"`
+	PriceMFen             int64   `mapstructure:"price_m_fen" yaml:"price_m_fen"`
+	PriceLFen             int64   `mapstructure:"price_l_fen" yaml:"price_l_fen"`
+	DepositSFen           int64   `mapstructure:"deposit_s_fen" yaml:"deposit_s_fen"`
+	DepositMFen           int64   `mapstructure:"deposit_m_fen" yaml:"deposit_m_fen"`
+	DepositLFen           int64   `mapstructure:"deposit_l_fen" yaml:"deposit_l_fen"`
+	OverdueRate           float64 `mapstructure:"overdue_rate" yaml:"overdue_rate"`
+	CabinetLockTTLSeconds int     `mapstructure:"cabinet_lock_ttl_seconds" yaml:"cabinet_lock_ttl_seconds"`
+	CacheTTLSeconds       int     `mapstructure:"cache_ttl_seconds" yaml:"cache_ttl_seconds"`
+	GrantTTLMinutes       int     `mapstructure:"grant_ttl_minutes" yaml:"grant_ttl_minutes"`
+	GrantMaxUses          int     `mapstructure:"grant_max_uses" yaml:"grant_max_uses"`
 }
 
 // Service 返回指定服务配置，并在缺省时提供可预测的兜底值。

@@ -26,7 +26,7 @@ func TestRouterUsesConfiguredCORSAndVersionedBusinessRoutes(t *testing.T) {
 	engine := router.New(&client.Clients{
 		User: fakeUserClient{},
 		Note: fakeNoteClient{},
-	}, zap.NewNop(), config.MiddlewareConfig{
+	}, nil, zap.NewNop(), config.MiddlewareConfig{
 		CORS: middleware.CORSConfig{
 			AllowOrigins: []string{"http://console.example.com"},
 			AllowMethods: []string{http.MethodGet, http.MethodPost, http.MethodOptions},
@@ -63,7 +63,7 @@ func TestRouterProtectsCurrentUserRouteWithJWT(t *testing.T) {
 	engine := router.New(&client.Clients{
 		User: fakeUserClient{},
 		Note: fakeNoteClient{},
-	}, zap.NewNop(), config.MiddlewareConfig{
+	}, nil, zap.NewNop(), config.MiddlewareConfig{
 		JWT: middleware.JWTConfig{
 			Secret:        "test-secret",
 			Issuer:        "xiaolanshu",
@@ -97,7 +97,7 @@ func TestRouterRejectsCurrentUserRouteWithoutJWT(t *testing.T) {
 	engine := router.New(&client.Clients{
 		User: fakeUserClient{},
 		Note: fakeNoteClient{},
-	}, zap.NewNop(), config.MiddlewareConfig{
+	}, nil, zap.NewNop(), config.MiddlewareConfig{
 		JWT: middleware.JWTConfig{
 			Secret:        "test-secret",
 			Issuer:        "xiaolanshu",
@@ -118,7 +118,7 @@ func TestRouterLoginIssuesJWTAtGateway(t *testing.T) {
 	engine := router.New(&client.Clients{
 		User: fakeUserClient{},
 		Note: fakeNoteClient{},
-	}, zap.NewNop(), config.MiddlewareConfig{
+	}, nil, zap.NewNop(), config.MiddlewareConfig{
 		JWT: middleware.JWTConfig{
 			Secret:        "test-secret",
 			Issuer:        "xiaolanshu",
@@ -186,3 +186,4 @@ func (fakeNoteClient) GetNote(context.Context, *notev1.GetNoteRequest, ...grpc.C
 func (fakeNoteClient) PublishNote(context.Context, *notev1.PublishNoteRequest, ...grpc.CallOption) (*notev1.NoteResponse, error) {
 	return &notev1.NoteResponse{Id: "note-1", AuthorId: "user-1", Title: "Title", Content: "Content", Status: "PUBLISHED"}, nil
 }
+

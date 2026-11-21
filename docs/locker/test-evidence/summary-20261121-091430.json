@@ -1,0 +1,120 @@
+{
+  "generated_at": "2026-11-21T09:14:32+08:00",
+  "base_url": "http://127.0.0.1:8080",
+  "rounds": 3,
+  "total_calls": 90,
+  "passed": 90,
+  "failed": 0,
+  "endpoints": [
+    {
+      "endpoint": "GET /balance",
+      "calls": 3,
+      "pass": 3
+    },
+    {
+      "endpoint": "GET /balance/flows",
+      "calls": 3,
+      "pass": 3
+    },
+    {
+      "endpoint": "GET /cities",
+      "calls": 3,
+      "pass": 3
+    },
+    {
+      "endpoint": "GET /coupons",
+      "calls": 3,
+      "pass": 3
+    },
+    {
+      "endpoint": "GET /guide",
+      "calls": 3,
+      "pass": 3
+    },
+    {
+      "endpoint": "GET /notices",
+      "calls": 3,
+      "pass": 3
+    },
+    {
+      "endpoint": "GET /orders",
+      "calls": 6,
+      "pass": 6
+    },
+    {
+      "endpoint": "GET /orders/:order_no",
+      "calls": 3,
+      "pass": 3
+    },
+    {
+      "endpoint": "GET /profile",
+      "calls": 3,
+      "pass": 3
+    },
+    {
+      "endpoint": "GET /recharges",
+      "calls": 3,
+      "pass": 3
+    },
+    {
+      "endpoint": "GET /stations",
+      "calls": 3,
+      "pass": 3
+    },
+    {
+      "endpoint": "GET /stations/st_001/cabinets",
+      "calls": 3,
+      "pass": 3
+    },
+    {
+      "endpoint": "POST /grants/:grant_no/use",
+      "calls": 9,
+      "pass": 9
+    },
+    {
+      "endpoint": "POST /notices/:id/read",
+      "calls": 3,
+      "pass": 3
+    },
+    {
+      "endpoint": "POST /orders",
+      "calls": 7,
+      "pass": 7
+    },
+    {
+      "endpoint": "POST /orders/:order_no/grants",
+      "calls": 3,
+      "pass": 3
+    },
+    {
+      "endpoint": "POST /orders/:order_no/overdue-pay",
+      "calls": 3,
+      "pass": 3
+    },
+    {
+      "endpoint": "POST /orders/:order_no/pickup",
+      "calls": 6,
+      "pass": 6
+    },
+    {
+      "endpoint": "POST /payments/notify",
+      "calls": 10,
+      "pass": 10
+    },
+    {
+      "endpoint": "POST /quote",
+      "calls": 3,
+      "pass": 3
+    },
+    {
+      "endpoint": "POST /recharges",
+      "calls": 3,
+      "pass": 3
+    },
+    {
+      "endpoint": "POST /recharges/notify",
+      "calls": 4,
+      "pass": 4
+    }
+  ]
+}
